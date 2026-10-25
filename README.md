@@ -9,7 +9,7 @@ Satellite operators decide whether to maneuver largely by comparing one number, 
 - how often a low value reflects missing knowledge rather than a safe geometry;
 - whether the uncertainties behind it hold up.
 
-The analysis plan was written and committed before any results were computed: see [PLAN.md](PLAN.md) and the commit history. Results are in [FINDINGS.md](FINDINGS.md). An independent review reproduced every result exactly. Its corrections to the interpretation are logged in PLAN.md.
+The analysis plan was written and committed before any results were computed: see [PLAN.md](PLAN.md) and the commit history. Results are in [FINDINGS.md](FINDINGS.md). An independent review, run in a separate Claude (Anthropic) session that had not taken part in the analysis, reproduced every result exactly. It was not a peer review. Its corrections to the interpretation are logged in PLAN.md.
 
 ## Main results
 

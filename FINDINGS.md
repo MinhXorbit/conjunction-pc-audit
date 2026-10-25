@@ -3,7 +3,7 @@
 What the analysis found, in plain terms. Every number below comes from `results/results.json`, produced by `scripts/run_audit.py`.
 
 - Analyses that were not in [PLAN.md](PLAN.md) are marked **exploratory**.
-- Analyses added after an independent review of the first write-up are marked **exploratory, added after review**.
+- Analyses added after an independent review of the first write-up (run in a separate Claude session; not a peer review) are marked **exploratory, added after review**.
 - Where a prediction in the plan failed, this file says so.
 
 ## Data used

@@ -82,3 +82,5 @@ Primary table: `raw_data/raw_data_2015-2019.gz`, 199,082 CDMs in 15,321 events a
    (c) the share beyond 3σ by chaser type with mission-level intervals, and for payloads without the mission that contributes most payload events;
    (d) radar cross-section terciles within debris only.
 8. Interpretation. H5 is reported as not supported and confounded with object type: payloads fall almost entirely in the largest radar cross-section tercile, and objects of unknown type have no radar cross-section. The data have no field showing whether an object can manoeuvre, so payload results are described only as payload results.
+
+**25 October 2026, clarification.** The review behind entries 6 to 8 was run in a separate Claude (Anthropic) session that had not taken part in the analysis. It re-downloaded the data, reran the code and critiqued the write-up. It was not a peer review. Nothing in the analysis changed.
