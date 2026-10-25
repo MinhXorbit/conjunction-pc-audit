@@ -65,4 +65,10 @@ Primary table: `raw_data/raw_data_2015-2019.gz`, 199,082 CDMs in 15,321 events a
 
 ## Changes after this commit
 
-None yet.
+**25 October 2026, after the first results were seen.** None of the planned definitions, thresholds or metrics were changed. Additions:
+
+1. The mission-level bootstrap uses 2,000 resamples. The plan did not fix a number.
+2. H3(c): a second comparison group was added: events that stayed below T with a decision log10 Pc of at least −10. The planned group is dominated by events at negligible risk. The new group is reported alongside the planned one, not instead of it.
+3. H4 interpretation note: under the planned normalization, a robust spread below 1 is expected even when the uncertainty is consistent, if the final uncertainty stays close to the decision-time value. So the share beyond 3σ, not the spread, is the decisive statistic. The planned metrics are reported unchanged.
+4. Exploratory analyses, marked as such in `results.json` and `FINDINGS.md`: a policy-curve summary (the threshold and alert load needed to flag 90% and 95% of events that end above a threshold), an update-normalized radial statistic, and a table of the missed escalations at 1e-5.
+5. `t_span` and `c_span` were added to the event table. No metric uses them.
