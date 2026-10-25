@@ -209,7 +209,7 @@ def h5_by_group(ev: pd.DataFrame, groups: pd.Series, reciprocal: bool = False) -
 
 # ---------------------------------------------------------------- Exploratory (added after results; see PLAN.md)
 def policy_summary(curve: list[dict], targets=(0.9, 0.95)) -> dict:
-    """Loosest decision threshold reaching each sensitivity target, and its alert load."""
+    """Strictest (highest) decision threshold reaching each sensitivity target, and its alert load."""
     out = {}
     final_above = curve[0]["both_above"] + curve[0]["missed_escalation"]
     for tgt in targets:
@@ -255,6 +255,96 @@ def missed_escalation_cases(ev: pd.DataFrame, threshold: float) -> pd.DataFrame:
         "time_to_tca_fin", "risk_fin", "max_risk_scaling_dec", "max_risk_estimate_dec",
     ]
     return m[cols].sort_values("risk_dec")
+
+
+# ---------------------------------------------------------------- Exploratory, added after independent review
+# Decision-Pc bins used by the forecast-consistency test: (lower log10, upper log10, label)
+DECISION_BINS = (
+    (-4.0, math.inf, ">=1e-4"),
+    (-5.0, -4.0, "1e-5 to 1e-4"),
+    (-6.0, -5.0, "1e-6 to 1e-5"),
+    (-7.0, -6.0, "1e-7 to 1e-6"),
+    (-8.0, -7.0, "1e-8 to 1e-7"),
+    (-10.0, -8.0, "1e-10 to 1e-8"),
+    (-math.inf, -10.0, "<1e-10"),
+)
+
+
+def forecast_consistency_masks(ev: pd.DataFrame) -> dict[str, pd.Series]:
+    """Boolean masks over eligible events for each decision-Pc bin, plus two pooled groups."""
+    e = ev[ev["eligible"]]
+    r = e["risk_dec"].astype(float)
+    masks = {label: (r >= lo) & (r < hi) for lo, hi, label in DECISION_BINS}
+    masks["pooled >=1e-6"] = r >= -6.0
+    masks["pooled <1e-6"] = r < -6.0
+    return masks
+
+
+def forecast_consistency_point(sub: pd.DataFrame) -> dict:
+    """Summed final Pc against summed decision Pc for a group of eligible events.
+
+    If each decision-time Pc were the conditional probability of collision given
+    the information available then, and the final Pc the same probability given
+    more information, the expected final Pc would equal the decision Pc. Within a
+    group selected on decision-time information, the ratio of the sums should
+    then be close to 1.
+    """
+    pdec = np.power(10.0, sub["risk_dec"].astype(float))
+    pfin = np.power(10.0, sub["risk_fin"].astype(float))
+    d = clip_log_pc(sub["risk_fin"]) - clip_log_pc(sub["risk_dec"])
+    sdec, sfin = float(pdec.sum()), float(pfin.sum())
+    return {
+        "n": int(len(sub)),
+        "sum_decision_pc": sdec,
+        "sum_final_pc": sfin,
+        "ratio_final_to_decision": sfin / sdec if sdec > 0 else math.nan,
+        "share_rose_10x_or_more": float(np.mean(d >= 1)) if len(sub) else math.nan,
+        "n_final_at_or_above_1e-5": int((sub["risk_fin"] >= -5).sum()),
+    }
+
+
+def ratio_bootstrap(sub: pd.DataFrame, n_boot: int, seed: int, by_mission: bool = False) -> list[float]:
+    """95% interval for the ratio of summed final to summed decision Pc."""
+    pdec = np.power(10.0, sub["risk_dec"].astype(float)).to_numpy()
+    pfin = np.power(10.0, sub["risk_fin"].astype(float)).to_numpy()
+    rng = np.random.default_rng(seed)
+    if by_mission:
+        g = pd.DataFrame({"d": pdec, "f": pfin, "m": sub["mission_id"].to_numpy()}).groupby("m")[["d", "f"]].sum()
+        D, F = g["d"].to_numpy(), g["f"].to_numpy()
+        picks = rng.integers(0, len(D), (n_boot, len(D)))
+        sd, sf = D[picks].sum(1), F[picks].sum(1)
+    else:
+        n = len(pdec)
+        sd = np.empty(n_boot)
+        sf = np.empty(n_boot)
+        for i in range(0, n_boot, 500):
+            b = min(500, n_boot - i)
+            idx = rng.integers(0, n, (b, n))
+            sd[i : i + b], sf[i : i + b] = pdec[idx].sum(1), pfin[idx].sum(1)
+    ok = sd > 0
+    vals = sf[ok] / sd[ok]
+    return [float(np.quantile(vals, 0.025)), float(np.quantile(vals, 0.975))]
+
+
+def radial_tail_link(ev: pd.DataFrame, threshold: float = 1e-5) -> dict:
+    """How often the events that moved, or were misclassified, had a radial update beyond 3 sigma."""
+    z = radial_z(ev)
+    e = ev.loc[z.index]
+    big = np.abs(z) > 3
+    lt = math.log10(threshold)
+    cons = np.maximum(e["risk_dec"], e["risk_fin"]) >= NOTIFICATION_LEVEL
+    d = clip_log_pc(e["risk_fin"]) - clip_log_pc(e["risk_dec"])
+    groups = {
+        "all eligible": pd.Series(True, index=e.index),
+        "consequential": cons,
+        "consequential, moved 10x or more": cons & (np.abs(d) >= 1),
+        "consequential, rose 10x or more": cons & (d >= 1),
+        f"missed escalation at {threshold:g}": (e["risk_dec"] < lt) & (e["risk_fin"] >= lt),
+        f"false alarm at {threshold:g}": (e["risk_dec"] >= lt) & (e["risk_fin"] < lt),
+    }
+    return {k: {"n": int(m.sum()), "n_beyond_3sigma": int((big & m).sum()),
+                "share_beyond_3sigma": float((big & m).sum() / m.sum()) if m.sum() else math.nan}
+            for k, m in groups.items()}
 
 
 # ---------------------------------------------------------------- D1

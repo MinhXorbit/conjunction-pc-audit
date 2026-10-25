@@ -180,6 +180,62 @@ def analyse(ev: pd.DataFrame, cdms: pd.DataFrame, reciprocal: bool, seed: int) -
         },
     }
 
+    # Exploratory analyses added after an independent review of v1 (PLAN.md, changes section)
+    rev: dict = {}
+    # (a) Forecast consistency of decision-time Pc against the final Pc
+    fc = {}
+    for i, (label, mask) in enumerate(M.forecast_consistency_masks(ev).items()):
+        sub = e[mask]
+        row = M.forecast_consistency_point(sub)
+        if row["n"] > 1:
+            row["ci95_event_bootstrap"] = M.ratio_bootstrap(sub, N_BOOT_EVENTS, seed + 100 + i)
+            row["ci95_mission_bootstrap"] = M.ratio_bootstrap(sub, N_BOOT_MISSIONS, seed + 200 + i, by_mission=True)
+        fc[label] = row
+    rev["forecast_consistency_by_decision_pc"] = fc
+    # (b) Dilution share among all decision CDMs, not only eligible events
+    dil_all = pd.Series(M.dilution_flag(ev["max_risk_scaling_dec"], reciprocal), index=ev.index)
+    rev["dilution_share_all_decision_cdms"] = flag_cis(dil_all, ev["mission_id"], seed + 300)
+    # (c) Do the events that moved or were misclassified show radial updates beyond 3 sigma?
+    rev["radial_tail_link_1e-5"] = M.radial_tail_link(ev, 1e-5)
+    rev["radial_tail_link_1e-4"] = M.radial_tail_link(ev, 1e-4)
+    # (d) Share beyond 3 sigma by chaser type with mission-level intervals, and payloads
+    #     without the mission that contributes most payload events
+    zt = pd.DataFrame({"z": z, "type": ev.loc[z.index, "c_object_type_dec"], "m": ev.loc[z.index, "mission_id"]})
+    by_type = {}
+    for j, (typ, g) in enumerate(zt.groupby("type")):
+        by_type[str(typ)] = flag_cis(g["z"].abs() > 3, g["m"], seed + 400 + j)
+    pay = zt[zt["type"] == "PAYLOAD"]
+    top_m = pay["m"].value_counts().idxmax()
+    rest = pay[pay["m"] != top_m]
+    by_type["PAYLOAD_without_largest_mission"] = {
+        "excluded_mission_id": int(top_m),
+        "excluded_share_of_payload_events": float((pay["m"] == top_m).mean()),
+        "estimate": float((rest["z"].abs() > 3).mean()),
+        "n": int(len(rest)),
+    }
+    rev["beyond_3sigma_by_type"] = by_type
+    # (e) Size within debris only (terciles of radar cross-section among debris events)
+    deb = e[(e["c_object_type_dec"] == "DEBRIS") & e["c_rcs_estimate_dec"].notna()]
+    q1, q2 = np.quantile(deb["c_rcs_estimate_dec"].astype(float), [1 / 3, 2 / 3])
+    lab = pd.Series(np.where(deb["c_rcs_estimate_dec"] <= q1, "small",
+                             np.where(deb["c_rcs_estimate_dec"] <= q2, "medium", "large")), index=deb.index)
+    dt = {"cuts_m2": [float(q1), float(q2)], "n_debris_with_rcs": int(len(deb))}
+    for k, name in enumerate(("small", "medium", "large")):
+        sub = deb[lab == name]
+        cons_s = sub[np.maximum(sub["risk_dec"], sub["risk_fin"]) >= M.NOTIFICATION_LEVEL]
+        dd = M.delta_log_pc(cons_s)
+        zz = M.radial_z(sub)
+        dt[name] = {
+            "n_eligible": int(len(sub)),
+            "n_consequential": int(len(cons_s)),
+            "h1_share_changed_10x": flag_cis(pd.Series(np.abs(dd) >= 1, index=cons_s.index), cons_s["mission_id"], seed + 500 + k),
+            "dilution_share": flag_cis(pd.Series(M.dilution_flag(sub["max_risk_scaling_dec"], reciprocal), index=sub.index),
+                                       sub["mission_id"], seed + 510 + k),
+            "beyond_3sigma_share": flag_cis(pd.Series(np.abs(zz) > 3, index=zz.index), sub.loc[zz.index, "mission_id"], seed + 520 + k),
+        }
+    rev["debris_only_rcs_terciles"] = dt
+    res["exploratory_review"] = rev
+
     # Per-mission breakdown
     pm = {}
     for mid, sub in ev.groupby("mission_id"):

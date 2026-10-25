@@ -72,3 +72,13 @@ Primary table: `raw_data/raw_data_2015-2019.gz`, 199,082 CDMs in 15,321 events a
 3. H4 interpretation note: under the planned normalization, a robust spread below 1 is expected even when the uncertainty is consistent, if the final uncertainty stays close to the decision-time value. So the share beyond 3σ, not the spread, is the decisive statistic. The planned metrics are reported unchanged.
 4. Exploratory analyses, marked as such in `results.json` and `FINDINGS.md`: a policy-curve summary (the threshold and alert load needed to flag 90% and 95% of events that end above a threshold), an update-normalized radial statistic, and a table of the missed escalations at 1e-5.
 5. `t_span` and `c_span` were added to the event table. No metric uses them.
+
+**25 October 2026, after an independent review of the first write-up.** The review reproduced every result exactly and found no errors in the code. It did find claims that went beyond the evidence; those were corrected in FINDINGS.md and README.md. The planned definitions and metrics are unchanged. Additions and omissions from the first entry:
+
+6. Omissions from the first entry. H3(b) was computed over eligible events only, although the plan says "overall"; the share over all decision CDMs is now reported as well. The policy curve uses quarter-decade steps; the plan gave only its range. Also reported but not in the plan: the number of events whose final Pc is at or below 1e-30, the median absolute change in H1, a check that each event's last row is its minimum-time CDM, and the per-mission radial standard deviation.
+7. Exploratory analyses prompted by the review, marked `exploratory_review` in `results.json`:
+   (a) a forecast-consistency test: summed final Pc against summed decision-time Pc, by decade of decision-time Pc, with event and mission bootstrap intervals;
+   (b) how many of the events that moved or were misclassified had a radial update beyond 3σ;
+   (c) the share beyond 3σ by chaser type with mission-level intervals, and for payloads without the mission that contributes most payload events;
+   (d) radar cross-section terciles within debris only.
+8. Interpretation. H5 is reported as not supported and confounded with object type: payloads fall almost entirely in the largest radar cross-section tercile, and objects of unknown type have no radar cross-section. The data have no field showing whether an object can manoeuvre, so payload results are described only as payload results.

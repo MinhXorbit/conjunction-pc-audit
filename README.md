@@ -2,21 +2,31 @@
 
 An open audit of how probability of collision (Pc) behaves in ESA's public archive of Conjunction Data Messages (2015 to 2019).
 
-Satellite operators decide whether to maneuver largely by comparing one number, Pc, against a fixed threshold. This repository asks how much that number deserves the trust it gets at the moment of decision: how much it moves before closest approach, how often a low value reflects missing knowledge rather than a safe geometry, and whether the uncertainties behind it hold up.
+Satellite operators decide whether to maneuver largely by comparing one number, Pc, against a fixed threshold. This repository asks how much that number deserves the trust it gets at the moment of decision:
 
-The analysis plan was written and committed before any results were computed: see [PLAN.md](PLAN.md) and the commit history. Results are in [FINDINGS.md](FINDINGS.md).
+- how much it moves before closest approach;
+- whether its movement is consistent with a calibrated forecast;
+- how often a low value reflects missing knowledge rather than a safe geometry;
+- whether the uncertainties behind it hold up.
+
+The analysis plan was written and committed before any results were computed: see [PLAN.md](PLAN.md) and the commit history. Results are in [FINDINGS.md](FINDINGS.md). An independent review reproduced every result exactly. Its corrections to the interpretation are logged in PLAN.md.
 
 ## Main results
 
-From ESA's final decision point, one day before closest approach:
+Measured from one day before closest approach, the latest point at which ESA describes taking maneuver decisions:
 
-- **Pc moved by 10× or more in 48.5% of the conjunctions that mattered** (those reaching 1e-6), and by 100× or more in 41.4%.
-- **At a 1e-5 threshold, about half of the decision-time alerts ended below it, and about one in six events that ended above it had been below it.** Four of those had a decision-time Pc under 1e-9.
-- **Probability dilution affects 5% of decision-time CDMs** and accounts for a minority of the missed escalations.
-- **3.0% of radial updates exceed 3σ of the reported uncertainty, about 11 times what consistent Gaussian uncertainty allows.** Active satellites show the heaviest tails.
-- **Summed over all 15,321 conjunctions, the final Pc values add up to 0.049 expected collisions.** This archive cannot test Pc against outcomes.
+- **Pc moved by 10× or more in 48.5% of the conjunctions that mattered** (those reaching 1e-6). The movement was mostly downward, as a forecast's should be when uncertainty shrinks.
+- **High Pc values hold up on average; low ones understate later risk** (exploratory, added after review). Where decision-time Pc was 1e-6 or more, the later estimates summed to 1.11 times the decision-time values (95% CI 0.55 to 1.73). Below 1e-6, they summed to about 8 times (2.2 to 17.5). Those events still carry only about 4% of the total final Pc of eligible events.
+- **At a 1e-5 threshold, about half of decision-time alerts ended below it, and about one in six events that ended above it had been below it.** Four of those had a decision-time Pc under 1e-12. Events that needed a maneuver are not in the archive, so these shares describe events where ESA did not maneuver.
+- **Probability dilution affects 5% of decision-time CDMs for eligible events** (8% of all decision CDMs). It is present in a minority of the missed escalations.
+- **3.0% of radial updates exceed 3σ of the reported uncertainty**, about 11 times what consistent Gaussian uncertainty allows. These tails explain few of the missed escalations.
+- **Summed over all 15,321 conjunctions, the final Pc values add up to 0.049 expected collisions.** This archive cannot test Pc against collisions.
 
-Two planned predictions did not hold, and FINDINGS.md says so: dilution does not explain most misses, and smaller objects are not worse than larger ones.
+Three planned expectations were not supported, and FINDINGS.md says so:
+
+- dilution is not concentrated among the missed escalations;
+- smaller objects are not worse across the board;
+- the size comparison is confounded with object type.
 
 ## Reproduce
 
@@ -28,12 +38,12 @@ python scripts/make_figures.py
 python -m pytest -q                          # unit tests on synthetic data
 ```
 
-The analysis runs in under a minute on a laptop. Fixed seeds make the bootstrap intervals reproducible.
+The analysis runs in under a minute on a laptop. Fixed seeds make the bootstrap intervals reproducible. It was tested with Python 3.13, numpy 2.5.3, pandas 3.0.5 and matplotlib 3.11.2.
 
 ## Layout
 
 ```
-PLAN.md                 analysis plan, committed before any results
+PLAN.md                 analysis plan, committed before any results, with a log of later changes
 FINDINGS.md             results in plain language, with figures
 pc_audit/               event extraction, metrics, bootstrap
 scripts/                fetch_data.py, run_audit.py, make_figures.py

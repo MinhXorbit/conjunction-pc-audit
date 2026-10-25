@@ -1322,6 +1322,425 @@
         ]
       }
     },
+    "exploratory_review": {
+      "forecast_consistency_by_decision_pc": {
+        ">=1e-4": {
+          "n": 40,
+          "sum_decision_pc": 0.0182678,
+          "sum_final_pc": 0.021072918672900003,
+          "ratio_final_to_decision": 1.1535553636945883,
+          "share_rose_10x_or_more": 0.025,
+          "n_final_at_or_above_1e-5": 25,
+          "ci95_event_bootstrap": [
+            0.5033763325011483,
+            1.9193576214419605
+          ],
+          "ci95_mission_bootstrap": [
+            0.5176178009145462,
+            1.8948332968255877
+          ]
+        },
+        "1e-5 to 1e-4": {
+          "n": 96,
+          "sum_decision_pc": 0.0031524499999999993,
+          "sum_final_pc": 0.002878226454529167,
+          "ratio_final_to_decision": 0.9130125630951063,
+          "share_rose_10x_or_more": 0.0,
+          "n_final_at_or_above_1e-5": 44,
+          "ci95_event_bootstrap": [
+            0.6302514771593516,
+            1.258222173580653
+          ],
+          "ci95_mission_bootstrap": [
+            0.650516429318993,
+            1.2915536004744002
+          ]
+        },
+        "1e-6 to 1e-5": {
+          "n": 241,
+          "sum_decision_pc": 0.0008612609999999999,
+          "sum_final_pc": 0.0006866993286635222,
+          "ratio_final_to_decision": 0.797318500040664,
+          "share_rose_10x_or_more": 0.008298755186721992,
+          "n_final_at_or_above_1e-5": 5,
+          "ci95_event_bootstrap": [
+            0.5120097008730695,
+            1.2322475350002176
+          ],
+          "ci95_mission_bootstrap": [
+            0.4933949630096494,
+            1.2543742354709406
+          ]
+        },
+        "1e-7 to 1e-6": {
+          "n": 295,
+          "sum_decision_pc": 0.0001086746,
+          "sum_final_pc": 0.00031978421654661206,
+          "ratio_final_to_decision": 2.942584712035858,
+          "share_rose_10x_or_more": 0.02711864406779661,
+          "n_final_at_or_above_1e-5": 5,
+          "ci95_event_bootstrap": [
+            1.140229143694222,
+            5.357935112142063
+          ],
+          "ci95_mission_bootstrap": [
+            1.1204721416721806,
+            5.625083357928568
+          ]
+        },
+        "1e-8 to 1e-7": {
+          "n": 264,
+          "sum_decision_pc": 1.075125e-05,
+          "sum_final_pc": 1.5337835753370033e-05,
+          "ratio_final_to_decision": 1.4266095340885974,
+          "share_rose_10x_or_more": 0.011363636363636364,
+          "n_final_at_or_above_1e-5": 0,
+          "ci95_event_bootstrap": [
+            0.6116075008140035,
+            2.57206182495336
+          ],
+          "ci95_mission_bootstrap": [
+            0.7412760788399839,
+            2.938330323717192
+          ]
+        },
+        "1e-10 to 1e-8": {
+          "n": 383,
+          "sum_decision_pc": 8.940163000000001e-07,
+          "sum_final_pc": 4.75627597531144e-06,
+          "ratio_final_to_decision": 5.320122211766653,
+          "share_rose_10x_or_more": 0.018276762402088774,
+          "n_final_at_or_above_1e-5": 0,
+          "ci95_event_bootstrap": [
+            0.890518869482901,
+            13.43323585428892
+          ],
+          "ci95_mission_bootstrap": [
+            0.7429795579507843,
+            12.0880715188141
+          ]
+        },
+        "<1e-10": {
+          "n": 9746,
+          "sum_decision_pc": 7.529631428098613e-09,
+          "sum_final_pc": 0.000596591732996488,
+          "ratio_final_to_decision": 79232.5280053103,
+          "share_rose_10x_or_more": 0.002975579725015391,
+          "n_final_at_or_above_1e-5": 4,
+          "ci95_event_bootstrap": [
+            3824.239166976041,
+            229387.01492765016
+          ],
+          "ci95_mission_bootstrap": [
+            4637.772795928595,
+            248612.7844635238
+          ]
+        },
+        "pooled >=1e-6": {
+          "n": 377,
+          "sum_decision_pc": 0.022281510999999997,
+          "sum_final_pc": 0.02463784445609269,
+          "ratio_final_to_decision": 1.105752857429314,
+          "share_rose_10x_or_more": 0.007957559681697613,
+          "n_final_at_or_above_1e-5": 74,
+          "ci95_event_bootstrap": [
+            0.5465342315215821,
+            1.7337252189679013
+          ],
+          "ci95_mission_bootstrap": [
+            0.5629120903674467,
+            1.7529416540238922
+          ]
+        },
+        "pooled <1e-6": {
+          "n": 10688,
+          "sum_decision_pc": 0.0001203273959314281,
+          "sum_final_pc": 0.0009364700612717815,
+          "ratio_final_to_decision": 7.782683685812123,
+          "share_rose_10x_or_more": 0.004397455089820359,
+          "n_final_at_or_above_1e-5": 9,
+          "ci95_event_bootstrap": [
+            2.2400690591991106,
+            17.503995948864993
+          ],
+          "ci95_mission_bootstrap": [
+            2.27385426926437,
+            17.595435352886877
+          ]
+        }
+      },
+      "dilution_share_all_decision_cdms": {
+        "estimate": 0.08233938736785036,
+        "n": 14756,
+        "ci95_event_bootstrap": [
+          0.07813770669558145,
+          0.08681214421252371
+        ],
+        "ci95_mission_bootstrap": [
+          0.04896625576438607,
+          0.13465988830701053
+        ]
+      },
+      "radial_tail_link_1e-5": {
+        "all eligible": {
+          "n": 11065,
+          "n_beyond_3sigma": 327,
+          "share_beyond_3sigma": 0.02955264347040217
+        },
+        "consequential": {
+          "n": 406,
+          "n_beyond_3sigma": 15,
+          "share_beyond_3sigma": 0.03694581280788178
+        },
+        "consequential, moved 10x or more": {
+          "n": 197,
+          "n_beyond_3sigma": 15,
+          "share_beyond_3sigma": 0.07614213197969544
+        },
+        "consequential, rose 10x or more": {
+          "n": 23,
+          "n_beyond_3sigma": 2,
+          "share_beyond_3sigma": 0.08695652173913043
+        },
+        "missed escalation at 1e-05": {
+          "n": 14,
+          "n_beyond_3sigma": 2,
+          "share_beyond_3sigma": 0.14285714285714285
+        },
+        "false alarm at 1e-05": {
+          "n": 67,
+          "n_beyond_3sigma": 5,
+          "share_beyond_3sigma": 0.07462686567164178
+        }
+      },
+      "radial_tail_link_1e-4": {
+        "all eligible": {
+          "n": 11065,
+          "n_beyond_3sigma": 327,
+          "share_beyond_3sigma": 0.02955264347040217
+        },
+        "consequential": {
+          "n": 406,
+          "n_beyond_3sigma": 15,
+          "share_beyond_3sigma": 0.03694581280788178
+        },
+        "consequential, moved 10x or more": {
+          "n": 197,
+          "n_beyond_3sigma": 15,
+          "share_beyond_3sigma": 0.07614213197969544
+        },
+        "consequential, rose 10x or more": {
+          "n": 23,
+          "n_beyond_3sigma": 2,
+          "share_beyond_3sigma": 0.08695652173913043
+        },
+        "missed escalation at 0.0001": {
+          "n": 9,
+          "n_beyond_3sigma": 0,
+          "share_beyond_3sigma": 0.0
+        },
+        "false alarm at 0.0001": {
+          "n": 25,
+          "n_beyond_3sigma": 2,
+          "share_beyond_3sigma": 0.08
+        }
+      },
+      "beyond_3sigma_by_type": {
+        "DEBRIS": {
+          "estimate": 0.02294723696534499,
+          "n": 6406,
+          "ci95_event_bootstrap": [
+            0.01935685295035904,
+            0.026693724633156415
+          ],
+          "ci95_mission_bootstrap": [
+            0.01578384751250904,
+            0.03387474233466899
+          ]
+        },
+        "PAYLOAD": {
+          "estimate": 0.06493506493506493,
+          "n": 1309,
+          "ci95_event_bootstrap": [
+            0.05194805194805195,
+            0.07868601986249045
+          ],
+          "ci95_mission_bootstrap": [
+            0.02880412310236872,
+            0.08172810722593028
+          ]
+        },
+        "ROCKET BODY": {
+          "estimate": 0.015037593984962405,
+          "n": 133,
+          "ci95_event_bootstrap": [
+            0.0,
+            0.03759398496240601
+          ],
+          "ci95_mission_bootstrap": [
+            0.0,
+            0.04124785223367692
+          ]
+        },
+        "TBA": {
+          "estimate": 0.09090909090909091,
+          "n": 11,
+          "ci95_event_bootstrap": [
+            0.0,
+            0.2727272727272727
+          ],
+          "ci95_mission_bootstrap": [
+            0.0,
+            0.21428571428571427
+          ]
+        },
+        "UNKNOWN": {
+          "estimate": 0.028696194635059263,
+          "n": 3206,
+          "ci95_event_bootstrap": [
+            0.023081721771678103,
+            0.03462258265751716
+          ],
+          "ci95_mission_bootstrap": [
+            0.02006244887082341,
+            0.04116983784620642
+          ]
+        },
+        "PAYLOAD_without_largest_mission": {
+          "excluded_mission_id": 7,
+          "excluded_share_of_payload_events": 0.5836516424751719,
+          "estimate": 0.03669724770642202,
+          "n": 545
+        }
+      },
+      "debris_only_rcs_terciles": {
+        "cuts_m2": [
+          0.0097,
+          0.014
+        ],
+        "n_debris_with_rcs": 6248,
+        "small": {
+          "n_eligible": 2088,
+          "n_consequential": 88,
+          "h1_share_changed_10x": {
+            "estimate": 0.5454545454545454,
+            "n": 88,
+            "ci95_event_bootstrap": [
+              0.4431818181818182,
+              0.6477272727272727
+            ],
+            "ci95_mission_bootstrap": [
+              0.4444444444444444,
+              0.6379402054292003
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.027298850574712645,
+            "n": 2088,
+            "ci95_event_bootstrap": [
+              0.020593869731800767,
+              0.034482758620689655
+            ],
+            "ci95_mission_bootstrap": [
+              0.01240197036406902,
+              0.05630203724606009
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.029693486590038315,
+            "n": 2088,
+            "ci95_event_bootstrap": [
+              0.022509578544061302,
+              0.036877394636015325
+            ],
+            "ci95_mission_bootstrap": [
+              0.01782509251465975,
+              0.04561276274062571
+            ]
+          }
+        },
+        "medium": {
+          "n_eligible": 2084,
+          "n_consequential": 83,
+          "h1_share_changed_10x": {
+            "estimate": 0.4939759036144578,
+            "n": 83,
+            "ci95_event_bootstrap": [
+              0.3855421686746988,
+              0.6024096385542169
+            ],
+            "ci95_mission_bootstrap": [
+              0.32785394932935913,
+              0.6508432539682537
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.021593090211132437,
+            "n": 2084,
+            "ci95_event_bootstrap": [
+              0.015355086372360844,
+              0.02783109404990403
+            ],
+            "ci95_mission_bootstrap": [
+              0.01291463029022969,
+              0.0367348110311863
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.016794625719769675,
+            "n": 2084,
+            "ci95_event_bootstrap": [
+              0.011516314779270634,
+              0.022552783109404992
+            ],
+            "ci95_mission_bootstrap": [
+              0.010014435038944182,
+              0.026010761560860303
+            ]
+          }
+        },
+        "large": {
+          "n_eligible": 2076,
+          "n_consequential": 75,
+          "h1_share_changed_10x": {
+            "estimate": 0.5466666666666666,
+            "n": 75,
+            "ci95_event_bootstrap": [
+              0.44,
+              0.6533333333333333
+            ],
+            "ci95_mission_bootstrap": [
+              0.39341668395932766,
+              0.7142857142857143
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.02023121387283237,
+            "n": 2076,
+            "ci95_event_bootstrap": [
+              0.014450867052023121,
+              0.026493256262042388
+            ],
+            "ci95_mission_bootstrap": [
+              0.011493886347642505,
+              0.03665422706776016
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.0197495183044316,
+            "n": 2076,
+            "ci95_event_bootstrap": [
+              0.013969171483622351,
+              0.02601156069364162
+            ],
+            "ci95_mission_bootstrap": [
+              0.009575707448940301,
+              0.03155660702767726
+            ]
+          }
+        }
+      }
+    },
     "per_mission": {
       "1": {
         "n_eligible": 1931,
@@ -2819,6 +3238,425 @@
             "max_risk_estimate_dec": -4.79997073344623
           }
         ]
+      }
+    },
+    "exploratory_review": {
+      "forecast_consistency_by_decision_pc": {
+        ">=1e-4": {
+          "n": 44,
+          "sum_decision_pc": 0.0324355,
+          "sum_final_pc": 0.01831653906762,
+          "ratio_final_to_decision": 0.5647065427577809,
+          "share_rose_10x_or_more": 0.022727272727272728,
+          "n_final_at_or_above_1e-5": 21,
+          "ci95_event_bootstrap": [
+            0.14047108255615834,
+            1.7782615974686293
+          ],
+          "ci95_mission_bootstrap": [
+            0.19229467688185442,
+            1.840716972475639
+          ]
+        },
+        "1e-5 to 1e-4": {
+          "n": 155,
+          "sum_decision_pc": 0.00524062,
+          "sum_final_pc": 0.0050199356481384315,
+          "ratio_final_to_decision": 0.9578896481978147,
+          "share_rose_10x_or_more": 0.012903225806451613,
+          "n_final_at_or_above_1e-5": 44,
+          "ci95_event_bootstrap": [
+            0.4249375571537107,
+            1.7709915309243294
+          ],
+          "ci95_mission_bootstrap": [
+            0.4075091220635999,
+            1.26084920068676
+          ]
+        },
+        "1e-6 to 1e-5": {
+          "n": 318,
+          "sum_decision_pc": 0.0011725949999999998,
+          "sum_final_pc": 0.0008231157440993666,
+          "ratio_final_to_decision": 0.7019608169055528,
+          "share_rose_10x_or_more": 0.009433962264150943,
+          "n_final_at_or_above_1e-5": 7,
+          "ci95_event_bootstrap": [
+            0.3891232548294516,
+            1.1061829498093276
+          ],
+          "ci95_mission_bootstrap": [
+            0.33125380564224916,
+            0.918023422353976
+          ]
+        },
+        "1e-7 to 1e-6": {
+          "n": 467,
+          "sum_decision_pc": 0.00018201059999999996,
+          "sum_final_pc": 0.00026786478828044107,
+          "ratio_final_to_decision": 1.471698836663585,
+          "share_rose_10x_or_more": 0.02569593147751606,
+          "n_final_at_or_above_1e-5": 4,
+          "ci95_event_bootstrap": [
+            0.7597534806981414,
+            2.436030510647381
+          ],
+          "ci95_mission_bootstrap": [
+            0.6313815849411079,
+            2.3525271045971774
+          ]
+        },
+        "1e-8 to 1e-7": {
+          "n": 486,
+          "sum_decision_pc": 2.010466e-05,
+          "sum_final_pc": 0.00017081261011679484,
+          "ratio_final_to_decision": 8.49617004797867,
+          "share_rose_10x_or_more": 0.02263374485596708,
+          "n_final_at_or_above_1e-5": 4,
+          "ci95_event_bootstrap": [
+            1.3869567963865215,
+            19.977678874987923
+          ],
+          "ci95_mission_bootstrap": [
+            0.681159988295307,
+            16.244107592376817
+          ]
+        },
+        "1e-10 to 1e-8": {
+          "n": 628,
+          "sum_decision_pc": 1.5092902000000001e-06,
+          "sum_final_pc": 2.1210836740173773e-05,
+          "ratio_final_to_decision": 14.053517832537288,
+          "share_rose_10x_or_more": 0.025477707006369428,
+          "n_final_at_or_above_1e-5": 0,
+          "ci95_event_bootstrap": [
+            2.2173197795383786,
+            31.732068122652247
+          ],
+          "ci95_mission_bootstrap": [
+            1.6741503455968783,
+            41.017104406498724
+          ]
+        },
+        "<1e-10": {
+          "n": 8961,
+          "sum_decision_pc": 1.0846740732687385e-08,
+          "sum_final_pc": 0.0007088546149175473,
+          "ratio_final_to_decision": 65351.85383212545,
+          "share_rose_10x_or_more": 0.005802923780828032,
+          "n_final_at_or_above_1e-5": 7,
+          "ci95_event_bootstrap": [
+            9842.284743851887,
+            169286.70007449706
+          ],
+          "ci95_mission_bootstrap": [
+            10626.36279963053,
+            196478.48253644927
+          ]
+        },
+        "pooled >=1e-6": {
+          "n": 517,
+          "sum_decision_pc": 0.03884871499999999,
+          "sum_final_pc": 0.024159590459857796,
+          "ratio_final_to_decision": 0.6218890498658142,
+          "share_rose_10x_or_more": 0.01160541586073501,
+          "n_final_at_or_above_1e-5": 72,
+          "ci95_event_bootstrap": [
+            0.23011814264533376,
+            1.5354796749279895
+          ],
+          "ci95_mission_bootstrap": [
+            0.25172155770343146,
+            1.5304270913242317
+          ]
+        },
+        "pooled <1e-6": {
+          "n": 10542,
+          "sum_decision_pc": 0.00020363539694073267,
+          "sum_final_pc": 0.0011687428500549574,
+          "ratio_final_to_decision": 5.7393894559260525,
+          "share_rose_10x_or_more": 0.008632138114209827,
+          "n_final_at_or_above_1e-5": 15,
+          "ci95_event_bootstrap": [
+            2.3229936484709297,
+            11.238233973408914
+          ],
+          "ci95_mission_bootstrap": [
+            2.259119860190391,
+            10.252033808533387
+          ]
+        }
+      },
+      "dilution_share_all_decision_cdms": {
+        "estimate": 0.09369905733928698,
+        "n": 14109,
+        "ci95_event_bootstrap": [
+          0.08887943865617691,
+          0.09837692253171734
+        ],
+        "ci95_mission_bootstrap": [
+          0.05664014510616849,
+          0.15031381363094146
+        ]
+      },
+      "radial_tail_link_1e-5": {
+        "all eligible": {
+          "n": 11059,
+          "n_beyond_3sigma": 451,
+          "share_beyond_3sigma": 0.0407812641287639
+        },
+        "consequential": {
+          "n": 575,
+          "n_beyond_3sigma": 19,
+          "share_beyond_3sigma": 0.03304347826086956
+        },
+        "consequential, moved 10x or more": {
+          "n": 384,
+          "n_beyond_3sigma": 19,
+          "share_beyond_3sigma": 0.049479166666666664
+        },
+        "consequential, rose 10x or more": {
+          "n": 48,
+          "n_beyond_3sigma": 6,
+          "share_beyond_3sigma": 0.125
+        },
+        "missed escalation at 1e-05": {
+          "n": 22,
+          "n_beyond_3sigma": 3,
+          "share_beyond_3sigma": 0.13636363636363635
+        },
+        "false alarm at 1e-05": {
+          "n": 134,
+          "n_beyond_3sigma": 2,
+          "share_beyond_3sigma": 0.014925373134328358
+        }
+      },
+      "radial_tail_link_1e-4": {
+        "all eligible": {
+          "n": 11059,
+          "n_beyond_3sigma": 451,
+          "share_beyond_3sigma": 0.0407812641287639
+        },
+        "consequential": {
+          "n": 575,
+          "n_beyond_3sigma": 19,
+          "share_beyond_3sigma": 0.03304347826086956
+        },
+        "consequential, moved 10x or more": {
+          "n": 384,
+          "n_beyond_3sigma": 19,
+          "share_beyond_3sigma": 0.049479166666666664
+        },
+        "consequential, rose 10x or more": {
+          "n": 48,
+          "n_beyond_3sigma": 6,
+          "share_beyond_3sigma": 0.125
+        },
+        "missed escalation at 0.0001": {
+          "n": 11,
+          "n_beyond_3sigma": 0,
+          "share_beyond_3sigma": 0.0
+        },
+        "false alarm at 0.0001": {
+          "n": 32,
+          "n_beyond_3sigma": 1,
+          "share_beyond_3sigma": 0.03125
+        }
+      },
+      "beyond_3sigma_by_type": {
+        "DEBRIS": {
+          "estimate": 0.030805687203791468,
+          "n": 6330,
+          "ci95_event_bootstrap": [
+            0.026540284360189573,
+            0.035071090047393366
+          ],
+          "ci95_mission_bootstrap": [
+            0.02115868569278803,
+            0.043924929501655684
+          ]
+        },
+        "PAYLOAD": {
+          "estimate": 0.08885651857246904,
+          "n": 1373,
+          "ci95_event_bootstrap": [
+            0.07356154406409322,
+            0.10415149308084487
+          ],
+          "ci95_mission_bootstrap": [
+            0.02034385805775344,
+            0.126858460423354
+          ]
+        },
+        "ROCKET BODY": {
+          "estimate": 0.04580152671755725,
+          "n": 131,
+          "ci95_event_bootstrap": [
+            0.015267175572519083,
+            0.08396946564885496
+          ],
+          "ci95_mission_bootstrap": [
+            0.01774628879892038,
+            0.08
+          ]
+        },
+        "TBA": {
+          "estimate": 0.1111111111111111,
+          "n": 9,
+          "ci95_event_bootstrap": [
+            0.0,
+            0.3333333333333333
+          ],
+          "ci95_mission_bootstrap": [
+            0.0,
+            0.23076923076923078
+          ]
+        },
+        "UNKNOWN": {
+          "estimate": 0.03949004975124378,
+          "n": 3216,
+          "ci95_event_bootstrap": [
+            0.03264925373134328,
+            0.046330845771144276
+          ],
+          "ci95_mission_bootstrap": [
+            0.030142948817149316,
+            0.0534897792575755
+          ]
+        },
+        "PAYLOAD_without_largest_mission": {
+          "excluded_mission_id": 7,
+          "excluded_share_of_payload_events": 0.5637290604515659,
+          "estimate": 0.035058430717863104,
+          "n": 599
+        }
+      },
+      "debris_only_rcs_terciles": {
+        "cuts_m2": [
+          0.0097,
+          0.014
+        ],
+        "n_debris_with_rcs": 6176,
+        "small": {
+          "n_eligible": 2076,
+          "n_consequential": 112,
+          "h1_share_changed_10x": {
+            "estimate": 0.6964285714285714,
+            "n": 112,
+            "ci95_event_bootstrap": [
+              0.6160714285714286,
+              0.7767857142857143
+            ],
+            "ci95_mission_bootstrap": [
+              0.5630916262135922,
+              0.8014324836738993
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.04335260115606936,
+            "n": 2076,
+            "ci95_event_bootstrap": [
+              0.03468208092485549,
+              0.05250481695568401
+            ],
+            "ci95_mission_bootstrap": [
+              0.018135833580542136,
+              0.08731985897807389
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.036608863198458574,
+            "n": 2076,
+            "ci95_event_bootstrap": [
+              0.028901734104046242,
+              0.044797687861271675
+            ],
+            "ci95_mission_bootstrap": [
+              0.02438941879269943,
+              0.05391098448466563
+            ]
+          }
+        },
+        "medium": {
+          "n_eligible": 2078,
+          "n_consequential": 115,
+          "h1_share_changed_10x": {
+            "estimate": 0.6782608695652174,
+            "n": 115,
+            "ci95_event_bootstrap": [
+              0.591304347826087,
+              0.7652173913043478
+            ],
+            "ci95_mission_bootstrap": [
+              0.6071428571428571,
+              0.7523916532905296
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.030798845043310877,
+            "n": 2078,
+            "ci95_event_bootstrap": [
+              0.02358036573628489,
+              0.03849855630413859
+            ],
+            "ci95_mission_bootstrap": [
+              0.020675762808183246,
+              0.04891692546583849
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.025024061597690085,
+            "n": 2078,
+            "ci95_event_bootstrap": [
+              0.018768046198267566,
+              0.03224254090471607
+            ],
+            "ci95_mission_bootstrap": [
+              0.014962091896695043,
+              0.03499719567608305
+            ]
+          }
+        },
+        "large": {
+          "n_eligible": 2022,
+          "n_consequential": 111,
+          "h1_share_changed_10x": {
+            "estimate": 0.7387387387387387,
+            "n": 111,
+            "ci95_event_bootstrap": [
+              0.6576576576576577,
+              0.8198198198198198
+            ],
+            "ci95_mission_bootstrap": [
+              0.6201470305592927,
+              0.8469387755102041
+            ]
+          },
+          "dilution_share": {
+            "estimate": 0.027200791295746787,
+            "n": 2022,
+            "ci95_event_bootstrap": [
+              0.020276953511374877,
+              0.03461918892185954
+            ],
+            "ci95_mission_bootstrap": [
+              0.014899518022500459,
+              0.0421455938697318
+            ]
+          },
+          "beyond_3sigma_share": {
+            "estimate": 0.02967359050445104,
+            "n": 2022,
+            "ci95_event_bootstrap": [
+              0.02225519287833828,
+              0.03758654797230465
+            ],
+            "ci95_mission_bootstrap": [
+              0.019667793097843753,
+              0.04492131459951445
+            ]
+          }
+        }
       }
     },
     "per_mission": {

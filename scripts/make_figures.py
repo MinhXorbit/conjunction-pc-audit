@@ -155,7 +155,7 @@ def fig_policy_curve(curves: dict, outdir: pathlib.Path):
         i = int(np.flatnonzero(same)[0])
         offset = (-150, 14) if color == BLUE else (18, -34)
         ax.annotate(
-            f"Same threshold at decision:\n{100 * c['sensitivity'][i]:.0f}% flagged, {per[i]:.1f} alerts per event",
+            f"Same threshold at decision:\n{100 * c['sensitivity'][i]:.1f}% flagged, {per[i]:.1f} alerts per event",
             (per[i], 100 * c["sensitivity"][i]),
             xytext=offset, textcoords="offset points", fontsize=7.5, color=INK2,
             arrowprops=dict(arrowstyle="-", color=AXIS, lw=0.8),
@@ -207,6 +207,36 @@ def fig_radial(ev: pd.DataFrame, h4: dict, outdir: pathlib.Path):
     save(fig, outdir, "fig4_radial_consistency")
 
 
+# --------------------------------------------------------------- Fig 5
+def fig_forecast_consistency(fc: dict, outdir: pathlib.Path):
+    labels = [">=1e-4", "1e-5 to 1e-4", "1e-6 to 1e-5", "1e-7 to 1e-6", "1e-8 to 1e-7", "1e-10 to 1e-8", "<1e-10"]
+    ticks = ["≥$10^{-4}$", "$10^{-5}$ to\n$10^{-4}$", "$10^{-6}$ to\n$10^{-5}$", "$10^{-7}$ to\n$10^{-6}$",
+             "$10^{-8}$ to\n$10^{-7}$", "$10^{-10}$ to\n$10^{-8}$", "<$10^{-10}$"]
+    x = np.arange(len(labels))
+    est = np.array([fc[k]["ratio_final_to_decision"] for k in labels])
+    lo = np.array([fc[k]["ci95_event_bootstrap"][0] for k in labels])
+    hi = np.array([fc[k]["ci95_event_bootstrap"][1] for k in labels])
+    n = [fc[k]["n"] for k in labels]
+
+    fig, ax = plt.subplots(figsize=(6.4, 3.6))
+    ax.axhline(1.0, color=INK2, lw=1.0, ls=(0, (4, 3)), zorder=1,
+               label="Ratio of 1: decision-time Pc consistent, on average, with the final Pc")
+    ax.vlines(x, lo, hi, color=BLUE, lw=1.6, zorder=2, label="95% interval (events resampled)")
+    ax.scatter(x, est, s=46, c=BLUE, edgecolors=SURFACE, linewidths=1.5, zorder=3, label="Estimate")
+    ax.legend(loc="upper left", fontsize=7.5)
+    for xi, e_, ni in zip(x, est, n):
+        txt = f"{e_:.2g}" if e_ < 1000 else f"{e_:.1e}".replace("e+0", "e").replace("e+", "e")
+        ax.text(xi + 0.12, e_, txt, fontsize=7.5, color=INK2, va="center")
+        ax.text(xi, 0.11, f"n={ni:,}", fontsize=7, color=MUTED, ha="center", va="bottom")
+    ax.set_yscale("log")
+    ax.set_ylim(0.1, 1e6)
+    ax.set_xticks(x, ticks, fontsize=7.5)
+    ax.set_xlabel("Pc at the decision point (latest CDM ≥ 1 day before closest approach)")
+    ax.set_ylabel("Summed final Pc ÷\nsummed decision-time Pc")
+    ax.grid(axis="x", visible=False)
+    save(fig, outdir, "fig5_forecast_consistency")
+
+
 # --------------------------------------------------------------- Fig S1
 def fig_convention(sample: pd.DataFrame, outdir: pathlib.Path):
     fig, ax = plt.subplots(figsize=(5.0, 3.6))
@@ -238,6 +268,7 @@ def main():
     fig_change_distribution(ev1, ev2, fd)
     fig_policy_curve(res["primary_decision_1day"]["H2"], fd)
     fig_radial(ev1, res["primary_decision_1day"]["H4"], fd)
+    fig_forecast_consistency(res["primary_decision_1day"]["exploratory_review"]["forecast_consistency_by_decision_pc"], fd)
     fig_convention(pd.read_csv(rd / "cdm_sample_convention_check.csv"), fd)
     print("figures written to", fd)
 
