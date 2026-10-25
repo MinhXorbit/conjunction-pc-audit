@@ -1,0 +1,8 @@
+# Downloaded data is never committed
+data/raw/
+*.zip
+*.gz
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
